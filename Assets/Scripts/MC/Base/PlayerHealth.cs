@@ -1,16 +1,19 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : EntityHealth
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public event Action OnHealthChanged;
+    public override void Damaged(float damageAmount)
     {
-        
+        base.Damaged(damageAmount);
+        Debug.Log($"Player Health = {CurrentHealth}");
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Die()
     {
-        
+        base.Die();
+        Debug.Log("Player ded");
     }
 }

@@ -12,16 +12,20 @@ public class PlayerAttack : MonoBehaviour
     private int _attackIndex = 0;
     private float _rotation = 0f;
     private Coroutine _comboWindowCoroutine;
+    private Collider2D _attackArea;
 
+    [SerializeField] private float attackDamage;
     [SerializeField] private float rotationOffset;
     [SerializeField] private int maxAttackCombo = 3;
     [SerializeField] private float comboWindow = 0.3f;
     [SerializeField] private float attackTime = 0.5f;
-    [SerializeField] private Collider2D attackArea;
+    [SerializeField] private GameObject attackAreaObject;
 
     private void Awake()
     {
-        attackArea.enabled = false;
+        attackAreaObject.GetComponent<AttackArea>().SetDamage(attackDamage);
+        _attackArea = attackAreaObject.GetComponent<Collider2D>();
+        _attackArea.enabled = false;
     }
 
     private void OnEnable()
@@ -64,10 +68,10 @@ public class PlayerAttack : MonoBehaviour
         _isAttacking = true;
         transform.rotation = Quaternion.Euler(0f, 0f, _rotation);
         OnAttack?.Invoke(_attackIndex);
-        attackArea.enabled = true;
+        _attackArea.enabled = true;
         yield return new WaitForSeconds(attackTime);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        attackArea.enabled = false;
+        _attackArea.enabled = false;
 
         _isAttacking = false;
         OnAttackFinished?.Invoke();

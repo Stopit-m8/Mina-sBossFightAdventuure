@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public static PlayerControl Instance;
-    public PlayerAttack PlayerAttack;
-    public PlayerMovement PlayerMovement;
-    public PlayerInput PlayerInput;
-    public PlayerHealth PlayerHealth;
+    public PlayerAttack PlayerAttack { get; private set;}
+    public PlayerMovement PlayerMovement { get; private set;}
+    public PlayerInput PlayerInput { get; private set;}
+    public PlayerHealth PlayerHealth { get; private set;}
 
     private void Awake()
     {

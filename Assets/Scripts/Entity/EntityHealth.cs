@@ -10,7 +10,7 @@ public class EntityHealth : MonoBehaviour, IDamageable
         CurrentHealth = MaxHealth;
     }
 
-    public void Damage(float damageAmount)
+    public virtual void Damaged(float damageAmount)
     {
         CurrentHealth -= damageAmount;
         if (CurrentHealth <= 0)
@@ -19,7 +19,7 @@ public class EntityHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Debug.Log("This Thing Dead");
     }
