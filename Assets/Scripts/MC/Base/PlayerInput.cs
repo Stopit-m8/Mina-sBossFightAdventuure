@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (ctx.performed)
         {
+            Debug.Log("Player Attacked");
             OnAttackInput?.Invoke();
         }
     }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private Vector2 _direction = new();
     private Vector2 _previousVelocity;
@@ -15,24 +14,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
     {
-        _playerInput.OnMovementInput += Movement;
+        PlayerControl.Instance.PlayerInput.OnMovementInput += Movement;
+        PlayerControl.Instance.PlayerInput.OnAttackInput += StopMovement;
+        PlayerControl.Instance.PlayerAttack.OnAttackFinished += StartMovement;
     }
 
     private void OnDisable()
     {
-        _playerInput.OnMovementInput -= Movement;
+        PlayerControl.Instance.PlayerInput.OnMovementInput -= Movement;
+        PlayerControl.Instance.PlayerInput.OnAttackInput -= StopMovement;
+        PlayerControl.Instance.PlayerAttack.OnAttackFinished -= StartMovement;
     }
 
     private void Movement(Vector2 direction)
     {
         _direction = direction.normalized;
         Debug.Log("Direction Inputted");
+    }
+
+    private void StopMovement()
+    {
+        canMove = false;
+    }
+
+    private void StartMovement()
+    {
+        canMove = true;
     }
 
     private void FixedUpdate()
@@ -54,7 +66,11 @@ public class PlayerMovement : MonoBehaviour
                 OnMovement?.Invoke(_previousVelocity, _isMoving);
             }
         }
-        
-        Debug.Log(_rb.linearVelocity);
+        else
+        {
+            _rb.linearVelocity = Vector2.zero;
+        }
+
+            Debug.Log(_rb.linearVelocity);
     }
 }
