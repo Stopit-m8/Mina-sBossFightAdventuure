@@ -9,8 +9,18 @@ public class PlayerMovement : MonoBehaviour
     private bool _isMoving = false;
     public bool canMove = true;
     [SerializeField] private float speed;
+    public enum LastPlayerFacing
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
+    public LastPlayerFacing lastPlayerFacing;
 
     public event Action<Vector2, bool> OnMovement;
+    public event Action<Vector2> OnDirectionChanged;
 
     private void Awake()
     {
@@ -34,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private void Movement(Vector2 direction)
     {
         _direction = direction.normalized;
-        Debug.Log("Direction Inputted");
+        OnDirectionChanged?.Invoke(_direction);
     }
 
     private void StopMovement()

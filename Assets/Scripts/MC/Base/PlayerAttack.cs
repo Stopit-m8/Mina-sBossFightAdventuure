@@ -9,12 +9,14 @@ public class PlayerAttack : MonoBehaviour
 
     private bool _isAttacking;
     private bool _attackWindowOpen;
-    private int _attackIndex;
+    private int _attackIndex = 0;
+    private float _rotation = 0f;
     private Coroutine _comboWindowCoroutine;
 
+    [SerializeField] private float rotationOffset;
     [SerializeField] private int maxAttackCombo = 3;
     [SerializeField] private float comboWindow = 0.3f;
-    [SerializeField] private float attackTime = 0.4f;
+    [SerializeField] private float attackTime = 0.5f;
     [SerializeField] private Collider2D attackArea;
 
     private void Awake()
@@ -25,14 +27,13 @@ public class PlayerAttack : MonoBehaviour
     private void OnEnable()
     {
         PlayerControl.Instance.PlayerInput.OnAttackInput += Attack;
+        PlayerControl.Instance.PlayerMovement.OnDirectionChanged += UpdateDirection;
     }
 
     private void OnDisable()
     {
-        if (PlayerControl.Instance != null)
-            PlayerControl.Instance.PlayerInput.OnAttackInput -= Attack;
-
-        attackArea.enabled = false;
+        PlayerControl.Instance.PlayerInput.OnAttackInput -= Attack;
+        PlayerControl.Instance.PlayerMovement.OnDirectionChanged -= UpdateDirection;
     }
 
     private void Attack()
@@ -61,10 +62,11 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator LaunchAttackEnumerator()
     {
         _isAttacking = true;
-
+        transform.rotation = Quaternion.Euler(0f, 0f, _rotation);
         OnAttack?.Invoke(_attackIndex);
         attackArea.enabled = true;
         yield return new WaitForSeconds(attackTime);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         attackArea.enabled = false;
 
         _isAttacking = false;
@@ -78,6 +80,15 @@ public class PlayerAttack : MonoBehaviour
         {
             ResetAttack();
         }
+    }
+
+    private void UpdateDirection(Vector2 direction)
+    {
+        if (direction == Vector2.zero)
+            return;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        _rotation = angle + rotationOffset;
     }
 
     private IEnumerator StartComboWindow()
