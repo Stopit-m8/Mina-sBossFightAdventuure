@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _direction = new();
     private Vector2 _previousVelocity;
     private bool _isMoving = false;
+    public bool canMove = true;
     [SerializeField] private float speed;
 
     public event Action<Vector2, bool> OnMovement;
@@ -36,20 +37,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2(_direction.x * speed, _direction.y * speed);
-        if (_rb.linearVelocity != _previousVelocity)
+        if (canMove)
         {
-            _previousVelocity = _rb.linearVelocity;
-            if (_previousVelocity == Vector2.zero)
+            _rb.linearVelocity = new Vector2(_direction.x * speed, _direction.y * speed);
+            if (_rb.linearVelocity != _previousVelocity)
             {
-                _isMoving = false;
+                _previousVelocity = _rb.linearVelocity;
+                if (_previousVelocity == Vector2.zero)
+                {
+                    _isMoving = false;
+                }
+                else
+                {
+                    _isMoving = true;
+                }
+                OnMovement?.Invoke(_previousVelocity, _isMoving);
             }
-            else
-            {
-                _isMoving = true;
-            }
-            OnMovement?.Invoke(_previousVelocity, _isMoving);
         }
+        
         Debug.Log(_rb.linearVelocity);
     }
 }

@@ -16,11 +16,24 @@ public class PlayerAnimation : MonoBehaviour
         _movement.OnMovement += UpdateMovementAnimator;
     }
 
+    private void OnDisable()
+    {
+        _movement.OnMovement -= UpdateMovementAnimator;
+    }
+
     private void UpdateMovementAnimator(Vector2 velocity, bool isMoving)
     {
-        _animator.SetFloat("DirectionX", velocity.x);
-        _animator.SetFloat("DirectionY", velocity.y);
         _animator.SetBool("IsMoving", isMoving);
+        if (isMoving)
+        {
+            _animator.SetFloat("DirectionX", velocity.x);
+            _animator.SetFloat("DirectionY", velocity.y);
+        }
+    }
 
+    public void UpdateAttackAnimation(int comboIndex)
+    {
+        _animator.SetInteger("ComboIndex", comboIndex);
+        _animator.SetTrigger("Attack");
     }
 }
