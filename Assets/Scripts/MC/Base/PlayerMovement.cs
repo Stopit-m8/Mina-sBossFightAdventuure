@@ -1,14 +1,24 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Vector2 _direction = new();
+    private Vector2 _lastDirection = new();
     private Vector2 _previousVelocity;
     private bool _isMoving = false;
-    public bool canMove = true;
+    private bool _isDashing = false;
+    private bool _canMove = true;
+    private bool _canDash = true;
+    private PlayerInput _playerInput;
     [SerializeField] private float speed;
+
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashCooldown;
     public enum LastPlayerFacing
     {
         Up,
@@ -24,42 +34,50 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        _playerInput = PlayerControl.Instance.PlayerInput;
         _rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
     {
-        PlayerControl.Instance.PlayerInput.OnMovementInput += Movement;
-        PlayerControl.Instance.PlayerInput.OnAttackInput += StopMovement;
+        _playerInput.OnMovementInput += Movement;
+        _playerInput.OnAttackInput += StopMovement;
+        _playerInput.OnDashInput += Dash;
         PlayerControl.Instance.PlayerAttack.OnAttackFinished += StartMovement;
     }
 
     private void OnDisable()
     {
-        PlayerControl.Instance.PlayerInput.OnMovementInput -= Movement;
-        PlayerControl.Instance.PlayerInput.OnAttackInput -= StopMovement;
+        _playerInput.OnMovementInput -= Movement;
+        _playerInput.OnAttackInput -= StopMovement;
+        _playerInput.OnDashInput -= Dash;
         PlayerControl.Instance.PlayerAttack.OnAttackFinished -= StartMovement;
     }
 
     private void Movement(Vector2 direction)
     {
         _direction = direction.normalized;
+        if (_direction != Vector2.zero)
+        {
+            _lastDirection = _direction;
+        }
+        
         OnDirectionChanged?.Invoke(_direction);
     }
 
     private void StopMovement()
     {
-        canMove = false;
+        _canMove = false;
     }
 
     private void StartMovement()
     {
-        canMove = true;
+        _canMove = true;
     }
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (_canMove)
         {
             _rb.linearVelocity = new Vector2(_direction.x * speed, _direction.y * speed);
             if (_rb.linearVelocity != _previousVelocity)
@@ -76,11 +94,43 @@ public class PlayerMovement : MonoBehaviour
                 OnMovement?.Invoke(_previousVelocity, _isMoving);
             }
         }
+        else if(_isDashing)
+        {
+            _rb.AddForce(_lastDirection * dashSpeed, ForceMode2D.Impulse);
+        }
         else
         {
             _rb.linearVelocity = Vector2.zero;
         }
 
             Debug.Log(_rb.linearVelocity);
+    }
+
+    private void Dash()
+    {
+        if (_canDash)
+        {
+            StartCoroutine(DashCoroutine());
+        }
+        
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        Debug.Log("Dash");
+        _isDashing = true;
+        _canMove = false;
+        yield return new WaitForSeconds(dashDuration);
+        StartCoroutine(StartDashCooldown());
+        _isDashing = false;
+        _canMove = true;
+        
+    }
+
+    IEnumerator StartDashCooldown()
+    {
+        _canDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        _canDash = true;
     }
 }

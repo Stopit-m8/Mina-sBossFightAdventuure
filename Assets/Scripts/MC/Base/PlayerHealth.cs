@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerHealth : EntityHealth
 {
-    public event Action OnHealthChanged;
+    public event Action<float> OnHealthChanged;
     public override void Damaged(float damageAmount)
     {
         base.Damaged(damageAmount);
         Debug.Log($"Player Health = {CurrentHealth}");
-
+        OnHealthChanged?.Invoke(CurrentHealth);
     }
 
     public override void Die()

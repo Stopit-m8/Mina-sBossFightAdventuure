@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator _animator;
+    [SerializeField] private ParticleSystem slashEffect;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerAnimation : MonoBehaviour
     public void UpdateAttackAnimation(int comboIndex)
     {
         _animator.SetInteger("ComboIndex", comboIndex);
+        slashEffect.Play();
         _animator.SetTrigger("Attack");
     }
 }
