@@ -19,18 +19,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
-    public enum LastPlayerFacing
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
-    public LastPlayerFacing lastPlayerFacing;
 
     public event Action<Vector2, bool> OnMovement;
     public event Action<Vector2> OnDirectionChanged;
+    public event Action<bool> OnDash;
 
     private void Awake()
     {
@@ -108,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (_canDash)
+        if (_canDash && _canMove)
         {
             StartCoroutine(DashCoroutine());
         }
@@ -118,11 +110,16 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashCoroutine()
     {
         Debug.Log("Dash");
+
         _isDashing = true;
+        OnDash?.Invoke(_isDashing);
         _canMove = false;
+
         yield return new WaitForSeconds(dashDuration);
         StartCoroutine(StartDashCooldown());
+
         _isDashing = false;
+        OnDash?.Invoke(_isDashing);
         _canMove = true;
         
     }

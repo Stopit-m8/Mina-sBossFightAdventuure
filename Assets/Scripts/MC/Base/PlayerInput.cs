@@ -30,6 +30,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (ctx.performed)
         {
+            Debug.Log("Dash Inputted");
             OnDashInput?.Invoke();
         }
     }
