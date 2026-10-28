@@ -27,7 +27,6 @@ public class BossMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_canMove);
         if (_canMove)
         {
             _direction = (player.transform.position - transform.position).normalized;

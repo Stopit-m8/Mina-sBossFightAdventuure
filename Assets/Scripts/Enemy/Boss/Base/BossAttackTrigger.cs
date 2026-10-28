@@ -6,6 +6,10 @@ public class BossAttackTrigger : MonoBehaviour
     public event Action OnSomethingOnTrigger;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        OnSomethingOnTrigger?.Invoke();
+        if (collision.CompareTag("Player"))
+        {
+            OnSomethingOnTrigger?.Invoke();
+        }
+        
     }
 }
