@@ -95,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
             _rb.linearVelocity = Vector2.zero;
         }
 
-            Debug.Log(_rb.linearVelocity);
     }
 
     private void Dash()

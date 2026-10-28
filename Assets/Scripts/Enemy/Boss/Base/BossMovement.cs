@@ -7,15 +7,27 @@ public class BossMovement : MonoBehaviour
     private Vector2 _direction;
     private Rigidbody2D _rb;
     private bool _canMove = true;
+    private BossAttack _bossAttack;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _bossAttack = GetComponent<BossAttack>();
+    }
+
+    private void OnEnable()
+    {
+        _bossAttack.OnAttack += SetCanMove;
+    }
+
+    private void OnDisable()
+    {
+        _bossAttack.OnAttack -= SetCanMove;
     }
 
     private void FixedUpdate()
     {
-        
+        Debug.Log(_canMove);
         if (_canMove)
         {
             _direction = (player.transform.position - transform.position).normalized;
@@ -23,6 +35,7 @@ public class BossMovement : MonoBehaviour
         }
         else
         {
+            Debug.Log("Boss Stop");
             _rb.linearVelocity = Vector2.zero;
         }
     }
@@ -30,5 +43,6 @@ public class BossMovement : MonoBehaviour
     public void SetCanMove(bool canMove)
     {
         _canMove = canMove;
+        Debug.Log($"can move is changed to {_canMove}");
     }
 }

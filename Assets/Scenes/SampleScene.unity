@@ -363,7 +363,7 @@ PlayableDirector:
   - key: {fileID: -2235670196843166054, guid: f3f9d097487970d4d96091b3f186baf4, type: 2}
     value: {fileID: 519420033}
   - key: {fileID: 559625571147634172, guid: f3f9d097487970d4d96091b3f186baf4, type: 2}
-    value: {fileID: 251023434}
+    value: {fileID: 1897454687}
   - key: {fileID: -3372642263234457200, guid: f3f9d097487970d4d96091b3f186baf4, type: 2}
     value: {fileID: 2002973148}
   - key: {fileID: -4412501113729314218, guid: f3f9d097487970d4d96091b3f186baf4, type: 2}
@@ -1283,6 +1283,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1589ce5e0499a384a8317343c0cab7d1, type: 2}
     - {fileID: 11400000, guid: 88f40815103ddb340bc1591f51f2db65, type: 2}
     - {fileID: 11400000, guid: 74c7b6c6108b78d4d93327041edf504f, type: 2}
+    - {fileID: 11400000, guid: 0731416534cb4b149aae77e031b5eec1, type: 2}
+    - {fileID: 11400000, guid: 2ed5725a03a820a42bceab317d8e277a, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -1317,6 +1319,34 @@ MonoBehaviour:
         - m_Target: {fileID: 1897454694}
           m_TargetAssemblyTypeName: BossMovement, Assembly-CSharp
           m_MethodName: SetCanMove
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 756356805}
+          m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+          m_MethodName: ChangeCanInput
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 756356805}
+          m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+          m_MethodName: ChangeCanInput
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1935,6 +1965,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456325900}
   m_CullTransparentMesh: 1
+--- !u!1 &1497769844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1497769845}
+  - component: {fileID: 1497769846}
+  - component: {fileID: 1497769847}
+  m_Layer: 0
+  m_Name: TriggerArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1497769845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497769844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897454690}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1497769846
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497769844}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.03445959, y: 0.09169817}
+      - {x: -2.2718978, y: 0.032426506}
+      - {x: -1.9622499, y: -0.9359257}
+      - {x: 2.1535606, y: -0.88388014}
+      - {x: 2.3269467, y: 0.06637639}
+  m_UseDelaunayMesh: 1
+--- !u!114 &1497769847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497769844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595bf0462f3d25e4cab6238b82cafa8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAttackTrigger
 --- !u!1 &1565463335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,6 +2683,7 @@ GameObject:
   - component: {fileID: 1897454692}
   - component: {fileID: 1897454693}
   - component: {fileID: 1897454694}
+  - component: {fileID: 1897454695}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -2657,6 +2785,7 @@ Transform:
   m_Children:
   - {fileID: 251023435}
   - {fileID: 1895003490}
+  - {fileID: 1497769845}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1897454691
@@ -2697,6 +2826,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df00a59d67796b49993581ca36d28fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAttack
+  attackDamage: 10
+  bossAttackArea: {fileID: 1895003489}
+  bossTriggerArea: {fileID: 1497769846}
+  bossAttackTrigger: {fileID: 1497769847}
+  normalAttackTime: 0.5
+  specialAttackTime: 3
+  normalAttackCooldown: 2
+  specialAttackCooldown: 3
 --- !u!114 &1897454694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,6 +2848,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossMovement
   player: {fileID: 756356802}
   speed: 2
+--- !u!114 &1897454695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897454687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b18331fa3e1db45a6dc2d6c1429ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossBehaviour
 --- !u!1 &2002973148
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     public Vector2 Direction { get; private set; }
+    private bool _canInput = true;
 
     public event Action<Vector2> OnMovementInput;
     public event Action OnAttackInput;
@@ -12,6 +13,10 @@ public class PlayerInput : MonoBehaviour
 
     public void Movement(InputAction.CallbackContext ctx)
     {
+        if (!_canInput)
+        {
+            return;
+        }
         Direction = ctx.ReadValue<Vector2>();
         Debug.Log("Player Input Movement");
         OnMovementInput?.Invoke(Direction);
@@ -19,6 +24,10 @@ public class PlayerInput : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext ctx)
     {
+        if (!_canInput)
+        {
+            return;
+        }
         if (ctx.performed)
         {
             Debug.Log("Player Attacked");
@@ -28,6 +37,10 @@ public class PlayerInput : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext ctx)
     {
+        if (!_canInput)
+        {
+            return;
+        }
         if (ctx.performed)
         {
             Debug.Log("Dash Inputted");
@@ -37,9 +50,18 @@ public class PlayerInput : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext ctx)
     {
+        if (!_canInput)
+        {
+            return;
+        }
         if (ctx.performed)
         {
 
         }
+    }
+
+    public void ChangeCanInput(bool canInput)
+    {
+        _canInput = canInput;
     }
 }
