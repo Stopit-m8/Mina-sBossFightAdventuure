@@ -8,6 +8,7 @@ public class BossAttackArea : MonoBehaviour
     private void Awake()
     {
         _attackArea = GetComponent<Collider2D>();
+        _attackArea.enabled = false;
     }
 
     public void SetDamage(float damage)

@@ -88,9 +88,9 @@ public class BossAttack : MonoBehaviour
         
         _isAttacking = true;
         OnAttack?.Invoke(!_isAttacking);
-
+        _attackArea.enabled = true;
         yield return new WaitForSeconds(normalAttackTime);
-
+        _attackArea.enabled = false;
         yield return new WaitForSeconds(normalAttackCooldown);
         _isAttacking = false;
         OnAttack?.Invoke(!_isAttacking);

@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class BossAnimation : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Animator _animator;
+    [SerializeField] private BossAttack bossAttack;
+    private void Awake()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        bossAttack.OnAttack += AttackAnimation;
+    }
+
+    private void OnDisable()
+    {
+        bossAttack.OnAttack -= AttackAnimation;
+    }
+
+    private void AttackAnimation(bool isNotAttacking)
+    {
+        _animator.SetBool("IsAttacking", !isNotAttacking);
     }
 }
