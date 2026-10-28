@@ -18,11 +18,13 @@ public class BossMovement : MonoBehaviour
     private void OnEnable()
     {
         _bossAttack.OnAttack += SetCanMove;
+        _bossAttack.OnSpecialTriggered += SpecialMovement;
     }
 
     private void OnDisable()
     {
         _bossAttack.OnAttack -= SetCanMove;
+        _bossAttack.OnSpecialTriggered -= SpecialMovement;
     }
 
     private void FixedUpdate()
@@ -37,6 +39,11 @@ public class BossMovement : MonoBehaviour
             Debug.Log("Boss Stop");
             _rb.linearVelocity = Vector2.zero;
         }
+    }
+
+    private void SpecialMovement(bool isDoingSpecial)
+    {
+        SetCanMove(!isDoingSpecial);
     }
 
     public void SetCanMove(bool canMove)

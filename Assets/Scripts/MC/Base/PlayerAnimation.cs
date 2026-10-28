@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator _animator;
     [SerializeField] private ParticleSystem slashEffect;
+
+    public event Action OnAttackFinished;
 
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class PlayerAnimation : MonoBehaviour
     private void OnDisable()
     {
         PlayerControl.Instance.PlayerMovement.OnMovement -= UpdateMovementAnimator;
+        PlayerControl.Instance.PlayerAttack.OnAttack -= UpdateAttackAnimation;
     }
 
     private void UpdateMovementAnimator(Vector2 velocity, bool isMoving)
@@ -31,10 +35,15 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
-    public void UpdateAttackAnimation(int comboIndex)
+    private void UpdateAttackAnimation(int comboIndex)
     {
         _animator.SetInteger("ComboIndex", comboIndex);
         slashEffect.Play();
         _animator.SetTrigger("Attack");
+    }
+
+    private void UpdateAttackAnimationStatus()
+    {
+        OnAttackFinished?.Invoke();
     }
 }

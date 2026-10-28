@@ -18,14 +18,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float rotationOffset;
     [SerializeField] private int maxAttackCombo = 3;
     [SerializeField] private float comboWindow = 0.3f;
-    [SerializeField] private float attackTime = 0.5f;
     [SerializeField] private GameObject attackAreaObject;
+    [SerializeField] private PlayerAnimation playerAnimation;
 
     private void Awake()
     {
         attackAreaObject.GetComponent<AttackArea>().SetDamage(attackDamage);
         _attackArea = attackAreaObject.GetComponent<Collider2D>();
         _attackArea.enabled = false;
+        playerAnimation.OnAttackFinished += postAttack;
     }
 
     private void OnEnable()
@@ -45,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
         if (!_isAttacking && _attackIndex == 0)
         {
             _attackIndex = 1;
-            StartCoroutine(LaunchAttackEnumerator());
+            PreAttack();
         }
         else if (_attackWindowOpen && _attackIndex < maxAttackCombo)
         {
@@ -58,18 +59,21 @@ public class PlayerAttack : MonoBehaviour
             }
 
             _attackIndex++;
-            StartCoroutine(LaunchAttackEnumerator());
+            PreAttack();
         }
         Debug.Log(_attackIndex);
     }
 
-    private IEnumerator LaunchAttackEnumerator()
+    private void PreAttack()
     {
         _isAttacking = true;
         transform.rotation = Quaternion.Euler(0f, 0f, _rotation);
         OnAttack?.Invoke(_attackIndex);
         _attackArea.enabled = true;
-        yield return new WaitForSeconds(attackTime);
+    }
+
+    private void postAttack()
+    {
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         _attackArea.enabled = false;
 
