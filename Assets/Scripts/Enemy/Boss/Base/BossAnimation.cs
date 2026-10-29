@@ -15,22 +15,17 @@ public class BossAnimation : MonoBehaviour
     private void OnEnable()
     {
         bossAttack.OnAttack += AttackAnimation;
-        bossAttack.OnSpecialTriggered += SpecialAttackAnimation;
     }
 
     private void OnDisable()
     {
         bossAttack.OnAttack -= AttackAnimation;
-        bossAttack.OnSpecialTriggered -= SpecialAttackAnimation;
     }
 
-    private void AttackAnimation(bool isNotAttacking)
+    private void AttackAnimation(bool isAttacking, bool isSpecialAttacking)
     {
-        _animator.SetBool("IsAttacking", !isNotAttacking);
-    }
-
-    private void SpecialAttackAnimation(bool isSpecialAttacking)
-    {
+        Debug.Log($"IsAttacking = {isAttacking}, IsSpecialAttacking = {isSpecialAttacking}");
+        _animator.SetBool("IsAttacking", isAttacking);
         _animator.SetBool("IsSpecial", isSpecialAttacking);
     }
 

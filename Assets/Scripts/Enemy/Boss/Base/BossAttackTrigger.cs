@@ -9,6 +9,7 @@ public class BossAttackTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             OnSomethingOnTrigger?.Invoke();
+            Debug.Log("player is in trigger");
         }
         
     }

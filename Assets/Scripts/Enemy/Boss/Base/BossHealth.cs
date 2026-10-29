@@ -3,7 +3,16 @@ using UnityEngine;
 
 public class BossHealth : EntityHealth
 {
+    [SerializeField] private BossHealthUI bossHealthUI;
+
     public event Action<float, float> OnHealthChanged;
+
+    private void Awake()
+    {
+        bossHealthUI.SetMaxHealth(MaxHealth);
+        Debug.Log(MaxHealth);
+    }
+
     public override void Damaged(float damageAmount)
     {
         base.Damaged(damageAmount);

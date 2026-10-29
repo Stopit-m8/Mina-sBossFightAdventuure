@@ -12,12 +12,9 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private BossAnimation bossAnimation;
 
     [Header("Special Attack")]
-    [SerializeField] private float specialAttackTime;
-    [SerializeField] private float specialAttackCooldown;
-    [SerializeField] private Transform specialAttackPlace;
+    [SerializeField] private float specialAttackCooldown; 
 
     [Header("Normal Attack")]
-    [SerializeField] private float normalAttackTime;
     [SerializeField] private float normalAttackCooldown;
 
     
@@ -26,16 +23,12 @@ public class BossAttack : MonoBehaviour
     private Collider2D _attackArea;
     private BossHealth _bossHealth;
     private bool _isAttacking = false;
-    private enum BossAttackType
-    {
-        Special,
-        Normal
-    }
+    private bool _isSpecialAttacking = false;
+    private bool _canSpecial = false;
+    private bool _canAttack = true;
+    private bool _specialUnlocked = false;
 
-    private BossAttackType _attackType = BossAttackType.Normal;
-
-    public event Action<bool> OnAttack;
-    public event Action<bool> OnSpecialTriggered;
+    public event Action<bool, bool> OnAttack;
 
     private void OnEnable()
     {
@@ -59,9 +52,15 @@ public class BossAttack : MonoBehaviour
         _attackArea.enabled = false;
     }
 
+    private void Update()
+    {
+        Debug.Log($"can Attack = {_canAttack}");
+        Debug.Log($"can Special = {_canSpecial}");
+    }
+
     private void SomethingOnTrigger()
     {
-        if (!_isAttacking)
+        if (!_isAttacking && (_canAttack || (_specialUnlocked && _canSpecial)))
         {
             Debug.Log("player is in");
             Attack();
@@ -70,79 +69,69 @@ public class BossAttack : MonoBehaviour
 
     private void Attack()
     {
+        PreAttack();
         
-        switch (_attackType)
-        {
-            case BossAttackType.Special:
-                SpecialAttack();
-                break;
-
-            case BossAttackType.Normal:
-                NormalAttack();
-                break;
-        }
-        
-    }
-
-    private void NormalAttack()
-    {
-        Debug.Log("boss normal attack");
-        StartCoroutine(NormalAttackCoroutine());
-
-    }
-
-    private void SpecialAttack()
-    {
-        OnSpecialTriggered?.Invoke(true);
-        Debug.Log("boss Special attack");
-        StartCoroutine(SpecialAttackCoroutine());
     }
 
     private void PreAttack()
     {
-
+        _canAttack = false;
+        _isAttacking = true;
+        
+        _attackArea.enabled = true;
+        if (_specialUnlocked && _canSpecial)
+        {
+            _attackArea.enabled = false;
+            Debug.Log($"special is unlocked and ready");
+            _isSpecialAttacking = true;
+        }
+        OnAttack?.Invoke(_isAttacking, _isSpecialAttacking);
     }
 
     private void PostAttack()
     {
+        Debug.Log("Post Attack");
+        _attackArea.enabled = false;
+        _isAttacking = false;
+        
+        
+        
+        if (_isSpecialAttacking)
+        {
+            StartCoroutine(SpecialAttackCoroutine());
+            _isSpecialAttacking = false;
+        }
+        else
+        {
+            StartCoroutine(NormalAttackCoroutine());
+        }
 
+        OnAttack?.Invoke(_isAttacking, _isSpecialAttacking);
     }
 
     IEnumerator NormalAttackCoroutine()
     {
-        
-        _isAttacking = true;
-        OnAttack?.Invoke(!_isAttacking);
-        _attackArea.enabled = true;
-        yield return new WaitForSeconds(normalAttackTime);
-        _attackArea.enabled = false;
+        _canAttack = false;
         yield return new WaitForSeconds(normalAttackCooldown);
-        _isAttacking = false;
-        OnAttack?.Invoke(!_isAttacking);
+        _canAttack = true;
     }
 
     IEnumerator SpecialAttackCoroutine()
     {
-
-        _isAttacking = true;
-        OnAttack?.Invoke(!_isAttacking);
-
-        yield return new WaitForSeconds(specialAttackTime);
-
+        _canSpecial = false;
         yield return new WaitForSeconds(specialAttackCooldown);
-        _isAttacking = false;
-        OnAttack?.Invoke(!_isAttacking);
+        _canSpecial = true;
+        _canAttack = true;
     }
 
     private void AttackTypeChange(float currentHealth, float maxHealth)
     {
+        Debug.Log("AttackTpe Invoke");
         if (currentHealth < maxHealth/2)
         {
-            _attackType = BossAttackType.Special;
-        }
-        else
-        {
-            _attackType = BossAttackType.Normal;
+            _specialUnlocked = true;
+            _canSpecial = true;
+            Debug.Log($"special is unlocked {_specialUnlocked}");
         }
     }
 }

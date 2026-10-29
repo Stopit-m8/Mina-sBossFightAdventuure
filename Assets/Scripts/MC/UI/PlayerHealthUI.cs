@@ -11,10 +11,21 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private Slider healthBarBack;
     [SerializeField] private float healthDecreaseDuration;
     [SerializeField] private float backDelayDuration;
+    private PlayerHealth _playerHealth;
 
     private void Awake()
     {
-        PlayerControl.Instance.PlayerHealth.OnHealthChanged += SetHealth;
+        _playerHealth = PlayerControl.Instance.PlayerHealth;
+    }
+
+    private void OnEnable()
+    {
+        _playerHealth.OnHealthChanged += SetHealth;
+    }
+
+    private void OnDisable()
+    {
+        _playerHealth.OnHealthChanged -= SetHealth;
     }
 
     public void SetMaxHealth(float maxHealth)
