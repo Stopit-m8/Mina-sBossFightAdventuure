@@ -28,15 +28,17 @@ public class TransitionManager : MonoBehaviour
         animator.SetTrigger("In");
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        animator.SetTrigger("Out");
     }
 
     IEnumerator PrevSceneTransition()
     {
         Time.timeScale = 1f;
-        animator.SetTrigger("Out");
+        animator.SetTrigger("In");
         //AudioManager.Instance.PlaySFX(AudioManager.Instance.ButtonClip);
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        animator.SetTrigger("Out");
     }
 
     public void StartNextScene()

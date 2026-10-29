@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        this.enabled = true;
         if (Instance == null)
         {
             Instance = this;
