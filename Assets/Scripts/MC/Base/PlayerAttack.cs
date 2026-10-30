@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
         attackAreaObject.GetComponent<AttackArea>().SetDamage(attackDamage);
         _attackArea = attackAreaObject.GetComponent<Collider2D>();
         _attackArea.enabled = false;
-        playerAnimation.OnAttackFinished += postAttack;
+        playerAnimation.OnAttackFinished += PostAttack;
     }
 
     private void OnEnable()
@@ -72,7 +72,7 @@ public class PlayerAttack : MonoBehaviour
         _attackArea.enabled = true;
     }
 
-    private void postAttack()
+    private void PostAttack()
     {
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         _attackArea.enabled = false;
