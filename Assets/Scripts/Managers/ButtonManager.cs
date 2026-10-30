@@ -16,4 +16,9 @@ public class ButtonManager : MonoBehaviour
     {
         TransitionManager.Instance.StartPrevScene();
     }
+
+    public void RestartScene()
+    {
+        TransitionManager.Instance.RestartScene();
+    }
 }

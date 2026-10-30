@@ -41,6 +41,20 @@ public class TransitionManager : MonoBehaviour
         animator.SetTrigger("Out");
     }
 
+    IEnumerator RestartSceneTransition()
+    {
+        Time.timeScale = 1f;
+        animator.SetTrigger("In");
+        //AudioManager.Instance.PlaySFX(AudioManager.Instance.ButtonClip);
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        animator.SetTrigger("Out");
+    }
+    public void RestartScene()
+    {
+        StartCoroutine(RestartSceneTransition());
+    }
+
     public void StartNextScene()
     {
         StartCoroutine(NextSceneTransition());

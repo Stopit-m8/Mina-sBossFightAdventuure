@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     public event Action<Vector2> OnMovementInput;
     public event Action OnAttackInput;
     public event Action OnDashInput;
+    public event Action OnPauseInput;
 
     public void Movement(InputAction.CallbackContext ctx)
     {
@@ -54,9 +55,9 @@ public class PlayerInput : MonoBehaviour
         {
             return;
         }
-        if (ctx.performed)
+        if (ctx.started)
         {
-
+            OnPauseInput?.Invoke();
         }
     }
 
