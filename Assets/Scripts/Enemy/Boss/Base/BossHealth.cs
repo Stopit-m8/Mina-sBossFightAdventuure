@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class BossHealth : EntityHealth
 {
     [SerializeField] private BossHealthUI bossHealthUI;
+    [SerializeField] private ParticleSystem deathParticle;
 
     public event Action<float, float> OnHealthChanged;
+    public event Action OnDeath;
 
     private void Awake()
     {
@@ -23,6 +26,14 @@ public class BossHealth : EntityHealth
     public override void Die()
     {
         base.Die();
-        Destroy(gameObject);
+        deathParticle.Play();
+        StartCoroutine(Death());
+        
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1f);
+        OnDeath?.Invoke();
     }
 }
