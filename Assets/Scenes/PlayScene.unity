@@ -1263,80 +1263,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: BGM
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f2aa35930a5c9c48af1f18df40ee1a2, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: Missile
-      value: 
-      objectReference: {fileID: 8300000, guid: 27f6c6b6743d44e448aedc66c860ce04, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: sfxSource
-      value: 
-      objectReference: {fileID: 472543777}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: BossAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 81a8b4033f74db144b3ffc5f9aaf986d, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: PlayerAttack
-      value: 
-      objectReference: {fileID: 8300000, guid: 93f7d64a11a48b946bd43c7c3421d9cf, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[2].name
-      value: BossStomp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[3].name
-      value: Missile
-      objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[4].name
-      value: Missile
-      objectReference: {fileID: 0}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[0].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f2aa35930a5c9c48af1f18df40ee1a2, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[1].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 93f7d64a11a48b946bd43c7c3421d9cf, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[2].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 81a8b4033f74db144b3ffc5f9aaf986d, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[3].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 27f6c6b6743d44e448aedc66c860ce04, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[4].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 27f6c6b6743d44e448aedc66c860ce04, type: 3}
-    - target: {fileID: 5683449470563515583, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-      propertyPath: soundList.Array.data[5].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 27f6c6b6743d44e448aedc66c860ce04, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
---- !u!82 &472543777 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7307693304134458120, guid: 43017e364e63bfe4e8243affecf3ef88, type: 3}
-  m_PrefabInstance: {fileID: 472543776}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
