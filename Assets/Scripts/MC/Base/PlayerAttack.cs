@@ -70,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, _rotation);
         OnAttack?.Invoke(_attackIndex);
         _attackArea.enabled = true;
+        AudioManager.instance.PlaySFX(AudioManager.instance.PlayerAttack);
     }
 
     private void PostAttack()

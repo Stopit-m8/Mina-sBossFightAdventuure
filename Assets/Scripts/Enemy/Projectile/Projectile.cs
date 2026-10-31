@@ -51,6 +51,7 @@ public class Projectile : MonoBehaviour
     {
         Debug.Log("Explode");
         _col.enabled = true;
+        AudioManager.instance.PlaySFX(AudioManager.instance.Missile);
         explosionVFX.Play();
         spriteRenderer.enabled = false;
         StartCoroutine(WaitForExplosion());

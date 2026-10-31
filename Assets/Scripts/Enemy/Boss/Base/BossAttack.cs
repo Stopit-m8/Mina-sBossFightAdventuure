@@ -107,6 +107,7 @@ public class BossAttack : MonoBehaviour
         _isAttacking = true;
         
         _attackArea.enabled = true;
+        AudioManager.instance.PlaySFX(AudioManager.instance.BossAttack);
         if (_specialUnlocked && _canSpecial)
         {
             _attackArea.enabled = false;
